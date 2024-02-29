@@ -34,13 +34,28 @@ class RollDice:
         self.dot_list_x = [self.s1a, self.s2a, self.s3a, self.s4a, self.s5a, self.s6a, self.s7a]
         self.dot_list_y = [self.s7b, self.s6b, self.s5b, self.s4b, self.s3b, self.s2b, self.s1b]
 
+    @staticmethod
+    def input_validation(a: str):
+        """ Get input from user. Expect integer from 1 to 6.
+            1. Try to convert to integer. Raise Exception if not.
+            2. Check if it is between 1 and 6. Print message if not.
+            :return: integer form 1 to 6
+            :rtype: int
+            """
+        try:
+            b = int(a)
+            if 6 >= b >= 1:
+                return b
+            print("Invalid number. Enter number from 1 to 6.")
+        except ValueError:
+            print("Not integer. Enter number from 1 to 6.")
+
     def count(self, cnt: int):
         for item in range(cnt):
             canvas.create_rectangle(self.rct1, self.rct2, self.rct3, self.rct4)
             self.rct1 += 120
             self.rct3 += 120
             rolled = randint(1, 6)
-            print(f"Rolled now: {rolled}")
             if rolled == 1:
                 roll.draw1()
             elif rolled == 2:
@@ -55,7 +70,6 @@ class RollDice:
                 roll.draw6()
             self.dot_list_x = [cord + 120 for cord in self.dot_list_x]
             self.s1a, self.s2a, self.s3a, self.s4a, self.s5a, self.s6a, self.s7a = self.dot_list_x
-            print(f"dot_list now: {self.dot_list_x}")
 
     def draw1(self):
         return (
@@ -125,10 +139,15 @@ class RollDice:
         )
 
 
-roll = RollDice()
-roll.count(6)
+if __name__ == "__main__":
+    user_input = input("How many dice do you want to roll? [1-6] ")
+    roll = RollDice()
+    roll.count(roll.input_validation(user_input))
 
-# Start the Tkinter event loop
-root.mainloop()
+    # Start the Tkinter event loop
+    root.mainloop()
+
+
+
 
 
