@@ -31,8 +31,8 @@ class RollDice:
         self.s7a = 70
         self.s7b = 70
         self.circle_radius = 4
-        self.dot_list = [self.s1a, self.s1b, self.s2a, self.s2b, self.s3a, self.s3b, self.s4a, self.s4b,
-                         self.s5a, self.s5b, self.s6a, self.s6b, self.s7a, self.s7b]
+        self.dot_list_x = [self.s1a, self.s2a, self.s3a, self.s4a, self.s5a, self.s6a, self.s7a]
+        self.dot_list_y = [self.s7b, self.s6b, self.s5b, self.s4b, self.s3b, self.s2b, self.s1b]
 
     def count(self, cnt: int):
         for item in range(cnt):
@@ -53,8 +53,9 @@ class RollDice:
                 roll.draw5()
             elif rolled == 6:
                 roll.draw6()
-            self.dot_list = [cord + 120 for cord in self.dot_list]
-            print(f"dot_list now: {self.dot_list}")
+            self.dot_list_x = [cord + 120 for cord in self.dot_list_x]
+            self.s1a, self.s2a, self.s3a, self.s4a, self.s5a, self.s6a, self.s7a = self.dot_list_x
+            print(f"dot_list now: {self.dot_list_x}")
 
     def draw1(self):
         return (
@@ -125,7 +126,9 @@ class RollDice:
 
 
 roll = RollDice()
-roll.count(2)
+roll.count(6)
 
 # Start the Tkinter event loop
 root.mainloop()
+
+
